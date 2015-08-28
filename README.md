@@ -1,1 +1,0 @@
-# ansible-kvm-backing

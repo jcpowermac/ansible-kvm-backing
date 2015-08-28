@@ -1,0 +1,17 @@
+---
+- name: Instance IP Addresses 
+  hosts: kvm
+  tasks:
+  - name: retrieve ip address
+    virt_ipaddress:
+      name: "{{ item }}"
+      device: "eth0"
+    register: virsh_result
+    with_sequence: start=1 end={{ quantity }} format="{{ name_prefix }}%d"
+
+  - debug:
+      msg: "{{ item['ansible_virt_ipv4'] }}"
+    with_items: virsh_result.results
+
+
+# vim:ft=ansible:  
